@@ -2,8 +2,15 @@ import { ResponsitoryItem } from "./RepositoryItem";
 import '../styles/repositories.scss';
 import { useEffect, useState } from "react";
 
+interface Repository {
+  name: string,
+  description: string,
+  node_id: string,
+  html_url: string,
+}
+
 export function ReponsitoryList() {
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState<Repository[]>([]);
 
   useEffect(() => {
     fetch('https://api.github.com/orgs/rocketseat/repos')
@@ -16,7 +23,7 @@ export function ReponsitoryList() {
       <h1>Lista de repositórios</h1>
 
       <ul>
-        {repositories.map((repository) => {
+        {repositories.map((repository: Repository) => {
           return <ResponsitoryItem repository={repository} key={repository.node_id} /> 
         })}
       </ul>
